@@ -1,0 +1,143 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Global Reciprocal Colleges',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  void _navigate(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
+  Widget _headerButton(BuildContext context, String label, Widget page) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        ),
+        onPressed: () => _navigate(context, page),
+        child: Text(label, style: TextStyle(fontSize: 14)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("GRC"),
+        actions: [
+          _headerButton(context, "Computer Studies", CCSPage()),
+          _headerButton(context, "Education", COAPage()),
+          _headerButton(context, "Accountancy", CBAEPage()),
+          _headerButton(context, "Entrepreneurship", EntrepreneurshipPage()),
+          _headerButton(context, "Business Admin", BusinessAdminPage()),
+        ],
+      ),
+      body: BackgroundContainer(
+        imageUrl: "https://media.licdn.com/dms/image/C560BAQFFiR2IYmFM8A/company-logo_200_200/0/1607082150098?e=2147483647&v=beta&t=qt02ltiO6tRAyCWqWB0eQcK1sC186hOtRqNLw4rrPE0",
+        child: Center(
+          child: Text(
+            "Welcome! Select a button in the header.",
+            style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BackgroundContainer extends StatelessWidget {
+  final String imageUrl;
+  final Widget child;
+  const BackgroundContainer({required this.imageUrl, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Image.network(imageUrl, fit: BoxFit.cover),
+        ),
+        Container(color: Colors.black.withOpacity(0.3)),
+        Center(child: child),
+      ],
+    );
+  }
+}
+
+class CCSPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CollegePage(title: "CCS Page", description: "This is the CCS Page");
+  }
+}
+
+class COAPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CollegePage(title: "COA Page", description: "This is the COA Page");
+  }
+}
+
+class CBAEPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CollegePage(title: "CBAE Page", description: "This is the CBAE Page");
+  }
+}
+
+class EntrepreneurshipPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CollegePage(title: "Entrepreneurship Page", description: "This is the Entrepreneurship Page");
+  }
+}
+
+class BusinessAdminPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CollegePage(title: "Business Admin Page", description: "This is the Business Admin Page");
+  }
+}
+
+class CollegePage extends StatelessWidget {
+  final String title;
+  final String description;
+  const CollegePage({required this.title, required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: BackgroundContainer(
+        imageUrl: "https://media.licdn.com/dms/image/C560BAQFFiR2IYmFM8A/company-logo_200_200/0/1607082150098?e=2147483647&v=beta&t=qt02ltiO6tRAyCWqWB0eQcK1sC186hOtRqNLw4rrPE0",
+        child: Text(
+          description,
+          style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
